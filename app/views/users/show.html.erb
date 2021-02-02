@@ -1,0 +1,21 @@
+<article>
+  <div class=messeage>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+  <div class="info">
+    <%= current_user.name %>さんのページ
+  </div>
+  <div class="article_area">
+    <% @articles.each do |article| %>
+      <div class="article_box">
+        <h3 class="article_title" title="<%= article.title %>">
+          <a href="/articles/<%= article.id %>"><%= article.title %></a>
+        </h3>
+        <p class="article_user"><%= article.user.name %>さんの投稿</p>
+        <p class="article_time"><%= l article.updated_at, format: :long %></p>
+      </div>
+    <% end %>
+    <%= paginate @articles %>
+  </div>
+</article>

@@ -1,0 +1,43 @@
+<article>
+  <div class=messeage>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+  <strong>
+    <h2 class="info">
+      <%= @article.title %>
+    </h2>
+  </strong>
+  <div class="article_area">
+    <div class="article_box">
+      <p class="article_user"><%= @article.user.name %>さんの投稿</p>
+      <p class="article_time">最終更新：<%= l @article.updated_at, format: :long %></p>
+      <p class="article_content"><%= @article.content %></p>
+    </div>
+    <% if user_signed_in? && (current_user.id == @article.user_id) %>
+      <%= link_to '編集', edit_article_path(@article) %> |
+    <% end %>
+    <%= link_to '戻る', articles_path %>
+  </div>
+  <div class="reviews_area">
+    <strong>
+      <h4>コメント</h4>
+    </strong>
+    <% if @reviews %>
+      <% @reviews.each do |review| %>
+        <div class="reviews_box">
+          <p class="review_user"><%= review.user.name %>さん</p>
+          <p class="review_time"><%= l review.updated_at, format: :long %></p><br>
+          <p class="review_review"><%= review.review %></p><br>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <div class="container">
+      <%= form_tag("/articles/#{@article.id}/reviews", method: :post) do %>
+        <textarea name="review" placeholder="コメントする" rows="2" cols="30"></textarea><br>
+        <input type="submit" value="送信"></p>
+      <% end %>
+  </div>
+    
+</article>

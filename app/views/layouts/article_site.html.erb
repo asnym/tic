@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge,chrome=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    <title>Tic</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h2 class="header_title"><a href="/">TIC</a></h2>
+        <p class="header_space"></p>
+        <% if user_signed_in? %>
+          <p class="header_user">こんにちは <%= current_user.name %>さん</p>
+          <a class="mypage btn", href="/users/<%= current_user.id %>">マイページ</a>
+          <%= link_to "新規投稿", new_article_path, method: :get, class: "new btn" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "sign_out btn" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, method: :get, class: "sign_in btn" %>
+        <% end %>
+      </header>
+      <nav>nav</nav>
+      <%= yield %>
+      <aside>aside</aside>
+      <footer>問合せ先：開発課　森永</footer>
+    </main>
+  </body>
+</html>

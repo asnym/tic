@@ -1,0 +1,35 @@
+        <%# <%= link_to 'Show', article %>
+        <%# <%= link_to 'Edit', edit_article_path(article) %> 
+        <%# <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %> 
+
+
+<%# <%= link_to 'New Article', new_article_path %>
+
+<article>
+  <div class=messeage>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+  <div class="search_area">
+    <%= form_tag('/articles/search', method: :get) do %>
+      <form action="/articles/search" method="POST">
+        <input type="search" name="keyword" placeholder="キーワードを入力" type="text" value="">　
+        <input type="submit" name="submit" value="検索">
+      </form>
+    <% end %>
+  </div>
+  <div class="info">
+    新着投稿
+  </div>
+  <div class="article_area">
+    <% @articles.each do |article| %>
+      <div class="article_box">
+        <h3 class="article_title" title="<%= article.title %>">
+          <a href="/articles/<%= article.id %>"><%= article.title %></a>
+        </h3>
+        <p class="article_user"><%= article.user.name %>さんの投稿</p>
+        <p class="article_time"><%= l article.updated_at, format: :long %></p>
+      </div>
+    <% end %>
+  </div>
+</article>
